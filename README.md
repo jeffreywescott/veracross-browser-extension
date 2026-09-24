@@ -80,13 +80,22 @@ npm run safari
 
 This copies only `manifest.json`, `src/` and `icons/` into `dist/safari-ext`. It then generates one Xcode project, `dist/safari/Parent Digest/Parent Digest.xcodeproj`, containing a Mac app and an iOS app, each with the extension inside. Open it in Xcode.
 
-**Signing:** select the project in the sidebar and open **Signing & Capabilities** for each target you'll run:
+**Signing:** every target needs your Apple **Team**, or Xcode stops with *"Signing for … requires a development team"*. The easy way is to put your team ID in a file before generating the project:
+
+```bash
+echo YOURTEAMID > .apple-team-id
+npm run safari
+```
+
+`npm run safari` then sets the Team on all targets, Mac and iOS. You can also set `APPLE_TEAM_ID` in the environment instead. `.apple-team-id` is git-ignored. Your team ID is shown at developer.apple.com → Account → Membership, or in brackets after your name in Xcode's Team menu.
+
+You can also skip the file and pick the **Team** by hand in Xcode: select the project in the sidebar, then open **Signing & Capabilities** for each target you'll run:
 - On the Mac: *Parent Digest (macOS)* and *Parent Digest Extension (macOS)*.
 - On iOS: *Parent Digest (iOS)* and *Parent Digest Extension (iOS)*.
 
-Pick your **Team**. A paid Apple Developer account avoids the unsigned-extension step below on the Mac. On iOS it also avoids the 7-day expiry that free Personal Team builds have. On the Mac only, you can set **Signing Certificate** to **Sign to Run Locally** instead.
+Settings picked by hand are lost the next time you run `npm run safari`. A paid Apple Developer account avoids the unsigned-extension step below on the Mac. On iOS it also avoids the 7-day expiry of free Personal Team builds. For the Mac only, **Sign to Run Locally** also works, with no Team.
 
-After changing the code, run `npm run safari:sync` and press **⌘R** in Xcode again. Only use `npm run safari` to regenerate the project from scratch, because it resets the signing settings.
+After changing the code, run `npm run safari:sync` and press **⌘R** in Xcode again. Only use `npm run safari` to regenerate the project from scratch. It resets any signing settings picked by hand in Xcode; a Team from `.apple-team-id` is set again automatically.
 
 #### Mac
 

@@ -19,3 +19,6 @@ Thumbs.db
 # Never commit real portal pages; fixtures must use made-up content
 *.har
 /test/fixtures/real-*
+
+# Your Apple Developer team ID for signing the Safari build (see README)
+.apple-team-id
