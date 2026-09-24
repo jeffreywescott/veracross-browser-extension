@@ -12,9 +12,11 @@ const proxied = (op) => async (...args) => {
   return res.result;
 };
 
-// In-memory stand-in so the dashboard can run outside the extension (demo / design work).
+// Sample-data mode (dashboard.html?demo) and pages opened outside the extension use an in-memory
+// store, so made-up data never touches the parent's real stored digest.
+const SAMPLE_MODE = typeof location !== 'undefined' && new URLSearchParams(location.search).has('demo');
 const memory = new Map();
-const area = !inExtension
+const area = !inExtension || SAMPLE_MODE
   ? {
       async get(keys) {
         const list = keys == null ? [...memory.keys()] : Array.isArray(keys) ? keys : [keys];

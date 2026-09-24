@@ -7,9 +7,8 @@
   "description": "Browser extension: a private digest of the Veracross parent portal.",
   "scripts": {
     "test": "node --test test/*.test.js",
-    "zip": "rm -f dist/parent-digest.zip && mkdir -p dist && zip -r dist/parent-digest.zip manifest.json src icons -x '*.DS_Store' 'src/pages/demo.js'",
-    "safari": "rm -rf dist/safari dist/safari-ext && mkdir -p dist/safari-ext && cp -R manifest.json src icons dist/safari-ext/ && xcrun safari-web-extension-converter dist/safari-ext --project-location dist/safari --app-name 'Parent Digest' --bundle-identifier com.jeffreywescott.Parent-Digest --swift --no-open --force && node scripts/set-apple-team.mjs",
-    "safari:sync": "rm -rf dist/safari-ext/src dist/safari-ext/icons && cp -R manifest.json src icons dist/safari-ext/",
+    "zip": "rm -f dist/parent-digest.zip && mkdir -p dist && zip -r dist/parent-digest.zip manifest.json src icons -x '*.DS_Store'",
+    "safari": "open 'safari/Parent Digest/Parent Digest.xcodeproj'",
     "icons": "python3 scripts/make-icons.py"
   },
   "devDependencies": {

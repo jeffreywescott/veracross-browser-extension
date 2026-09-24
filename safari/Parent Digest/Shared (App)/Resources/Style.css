@@ -1,0 +1,59 @@
+* {
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    cursor: default;
+    box-sizing: border-box;
+}
+
+:root {
+    color-scheme: light dark;
+    --spacing: 16px;
+    --accent: #1f6a58;
+    --muted: #6b716e;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root { --accent: #5fbfa4; --muted: #9aa19d; }
+}
+
+html { min-height: 100%; }
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: var(--spacing);
+    margin: 0 auto;
+    padding: calc(var(--spacing) * 2) calc(var(--spacing) * 1.5);
+    max-width: 560px;
+    min-height: 100vh;
+    font: -apple-system-body;
+    text-align: center;
+}
+
+h1 { margin: 0; font-size: 1.6em; }
+h2 { margin: 0 0 8px; font-size: 1.05em; }
+.lead { margin: 0; color: var(--muted); }
+
+.steps { text-align: left; width: 100%; }
+.steps h2 { text-align: center; }
+.steps ol { margin: 0; padding-left: 1.4em; display: grid; gap: 8px; }
+
+.note { margin: 0; font-size: 0.9em; color: var(--muted); }
+.privacy { margin-top: var(--spacing); }
+
+section { display: grid; gap: 10px; justify-items: center; }
+
+body:not(.platform-mac, .platform-ios) :is(.platform-mac, .platform-ios) { display: none; }
+body.platform-ios .platform-mac { display: none; }
+body.platform-mac .platform-ios { display: none; }
+
+body:not(.state-on, .state-off) :is(.state-on, .state-off) { display: none; }
+body.state-on :is(.state-off, .state-unknown) { display: none; }
+body.state-off :is(.state-on, .state-unknown) { display: none; }
+
+button {
+    font-size: 1em;
+    padding: 6px 14px;
+}

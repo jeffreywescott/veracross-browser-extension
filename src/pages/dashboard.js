@@ -8,8 +8,9 @@ import { urls } from '../lib/config.js';
 import { translationAvailable, toEnglish, probablyNotEnglish } from '../lib/translate.js';
 
 const params = new URLSearchParams(location.search);
-// Outside the extension (page opened from disk or a dev server) show made-up demo data.
-const DEMO = !inExtension;
+// Sample data: outside the extension (dev server) or with ?demo inside it. Storage is in-memory
+// in both cases (see store.js), so the parent's real digest is never touched.
+const DEMO = !inExtension || params.has('demo');
 const FEED_WINDOW_DAYS = 60;
 const CLAMP_CHARS = 600;
 
@@ -69,7 +70,7 @@ function computeView() {
 }
 
 async function setBadge() {
-  if (!inExtension || !ext.action) return;
+  if (!inExtension || DEMO || !ext.action) return;
   const n = state.view?.total || 0;
   // Each call separately: Safari lacks some of these.
   const calls = [
@@ -135,7 +136,7 @@ function render() {
 function renderChrome() {
   const s = state.settings;
   const sub = [];
-  if (DEMO) sub.push('Demo data');
+  if (DEMO) sub.push('Sample data');
   sub.push(s.school || 'No school set');
   if (state.status.lastRefresh) sub.push(`Updated ${formatRelative(state.status.lastRefresh)}`);
   else if (state.latest) sub.push(`Updated ${formatRelative(state.latest.takenAt)}`);
@@ -153,6 +154,11 @@ function renderBanner() {
   const add = (cls, title, text, action) =>
     box.append(h('div', { class: `banner ${cls}` }, h('div', { class: 'b-text' }, h('strong', { text: title }), text && h('p', { text })), action));
 
+  if (DEMO) {
+    add('warn', 'Sample data', 'Everything here is made up, so you can see how the digest works. Nothing is read from Veracross and nothing is saved.',
+      inExtension ? h('a', { class: 'btn small', href: 'dashboard.html', text: 'Leave sample data' }) : null);
+    return;
+  }
   if (!state.settings.school) {
     add('', 'Set up', 'Open your Veracross parent portal in this browser and click the extension icon there, or enter your school route in Settings.',
       h('button', { class: 'btn small', type: 'button', onclick: openSettings, text: 'Settings' }));
@@ -226,9 +232,12 @@ function firstRunEmpty() {
     h('p', { text: school
       ? `Make sure you're logged in to the Veracross portal in this browser, then refresh. The first refresh reads every class for every child — about a minute, done slowly on purpose.`
       : 'Tell the extension which school portal to read.' }),
-    school
-      ? h('button', { class: 'btn primary', type: 'button', onclick: refresh, text: 'Refresh now' })
-      : h('button', { class: 'btn primary', type: 'button', onclick: openSettings, text: 'Open settings' }));
+    h('p', null,
+      school
+        ? h('button', { class: 'btn primary', type: 'button', onclick: refresh, text: 'Refresh now' })
+        : h('button', { class: 'btn primary', type: 'button', onclick: openSettings, text: 'Open settings' }),
+      ' ',
+      h('a', { class: 'btn', href: 'dashboard.html?demo', text: 'Try it with sample data' })));
 }
 
 // --- Rendering: Action items -------------------------------------------------------------------
@@ -570,7 +579,7 @@ async function main() {
   });
 
   // A scheduled check (or another dashboard tab) may update storage while this page is open.
-  if (inExtension) {
+  if (inExtension && !DEMO) {
     ext.storage.onChanged.addListener(async (changes, areaName) => {
       if (areaName !== 'local' || state.busy) return;
       const school = state.settings.school;

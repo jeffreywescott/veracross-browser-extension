@@ -1,0 +1,943 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 110;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		00A5C75B30658B98009C9CD2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A5C75A30658B98009C9CD2 /* AppDelegate.swift */; };
+		00A5C75D30658B98009C9CD2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A5C75C30658B98009C9CD2 /* SceneDelegate.swift */; };
+		00A5C76030658B98009C9CD2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00A5C75E30658B98009C9CD2 /* LaunchScreen.storyboard */; };
+		00A5C76330658B98009C9CD2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00A5C76130658B98009C9CD2 /* Main.storyboard */; };
+		00A5C76C30658B99009C9CD2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A5C76B30658B99009C9CD2 /* AppDelegate.swift */; };
+		00A5C76F30658B99009C9CD2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00A5C76D30658B99009C9CD2 /* Main.storyboard */; };
+		00A5C77630658B99009C9CD2 /* Parent Digest Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 00A5C77530658B99009C9CD2 /* Parent Digest Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		00A5C78030658B99009C9CD2 /* Parent Digest Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 00A5C77F30658B99009C9CD2 /* Parent Digest Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		00A5C78530658B99009C9CD2 /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = 00A5C74A30658B98009C9CD2 /* Main.html */; };
+		00A5C78630658B99009C9CD2 /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = 00A5C74A30658B98009C9CD2 /* Main.html */; };
+		00A5C78730658B99009C9CD2 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 00A5C74C30658B98009C9CD2 /* Icon.png */; };
+		00A5C78830658B99009C9CD2 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 00A5C74C30658B98009C9CD2 /* Icon.png */; };
+		00A5C78930658B99009C9CD2 /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = 00A5C74D30658B98009C9CD2 /* Style.css */; };
+		00A5C78A30658B99009C9CD2 /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = 00A5C74D30658B98009C9CD2 /* Style.css */; };
+		00A5C78B30658B99009C9CD2 /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = 00A5C74E30658B98009C9CD2 /* Script.js */; };
+		00A5C78C30658B99009C9CD2 /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = 00A5C74E30658B98009C9CD2 /* Script.js */; };
+		00A5C78D30658B99009C9CD2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A5C74F30658B98009C9CD2 /* ViewController.swift */; };
+		00A5C78E30658B99009C9CD2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A5C74F30658B98009C9CD2 /* ViewController.swift */; };
+		00A5C78F30658B99009C9CD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00A5C75030658B98009C9CD2 /* Assets.xcassets */; };
+		00A5C79030658B99009C9CD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00A5C75030658B98009C9CD2 /* Assets.xcassets */; };
+		00A5C79130658B99009C9CD2 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A5C75230658B98009C9CD2 /* SafariWebExtensionHandler.swift */; };
+		00A5C79230658B99009C9CD2 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A5C75230658B98009C9CD2 /* SafariWebExtensionHandler.swift */; };
+		00A5C7A730658B99009C9CD2 /* icons in Resources */ = {isa = PBXBuildFile; fileRef = 00A5C7A430658B99009C9CD2 /* icons */; };
+		00A5C7A830658B99009C9CD2 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 00A5C7A530658B99009C9CD2 /* manifest.json */; };
+		00A5C7A930658B99009C9CD2 /* src in Resources */ = {isa = PBXBuildFile; fileRef = 00A5C7A630658B99009C9CD2 /* src */; };
+		00A5C7AA30658B99009C9CD2 /* icons in Resources */ = {isa = PBXBuildFile; fileRef = 00A5C7A430658B99009C9CD2 /* icons */; };
+		00A5C7AB30658B99009C9CD2 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 00A5C7A530658B99009C9CD2 /* manifest.json */; };
+		00A5C7AC30658B99009C9CD2 /* src in Resources */ = {isa = PBXBuildFile; fileRef = 00A5C7A630658B99009C9CD2 /* src */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		00A5C77730658B99009C9CD2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 00A5C74430658B98009C9CD2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 00A5C77430658B99009C9CD2;
+			remoteInfo = "Parent Digest Extension (iOS)";
+		};
+		00A5C78130658B99009C9CD2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 00A5C74430658B98009C9CD2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 00A5C77E30658B99009C9CD2;
+			remoteInfo = "Parent Digest Extension (macOS)";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		00A5C79830658B99009C9CD2 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			dstPath = "";
+			dstSubfolder = PlugIns;
+			files = (
+				00A5C77630658B99009C9CD2 /* Parent Digest Extension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+		};
+		00A5C79F30658B99009C9CD2 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			dstPath = "";
+			dstSubfolder = PlugIns;
+			files = (
+				00A5C78030658B99009C9CD2 /* Parent Digest Extension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		9BF04A2F1278A746A3A52942 /* Signing.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Signing.xcconfig; path = ../Config/Signing.xcconfig; sourceTree = SOURCE_ROOT; };
+		00A5C74B30658B98009C9CD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/Main.html; sourceTree = "<group>"; };
+		00A5C74C30658B98009C9CD2 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		00A5C74D30658B98009C9CD2 /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
+		00A5C74E30658B98009C9CD2 /* Script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
+		00A5C74F30658B98009C9CD2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		00A5C75030658B98009C9CD2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		00A5C75230658B98009C9CD2 /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
+		00A5C75730658B98009C9CD2 /* Parent Digest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Parent Digest.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		00A5C75A30658B98009C9CD2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		00A5C75C30658B98009C9CD2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		00A5C75F30658B98009C9CD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		00A5C76230658B98009C9CD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		00A5C76430658B98009C9CD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		00A5C76930658B99009C9CD2 /* Parent Digest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Parent Digest.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		00A5C76B30658B99009C9CD2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		00A5C76E30658B99009C9CD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		00A5C77030658B99009C9CD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		00A5C77530658B99009C9CD2 /* Parent Digest Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Parent Digest Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		00A5C77A30658B99009C9CD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		00A5C77F30658B99009C9CD2 /* Parent Digest Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Parent Digest Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		00A5C78430658B99009C9CD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		00A5C7A430658B99009C9CD2 /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = icons; path = "../../../icons"; sourceTree = "<group>"; };
+		00A5C7A530658B99009C9CD2 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = "../../../manifest.json"; sourceTree = "<group>"; };
+		00A5C7A630658B99009C9CD2 /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; name = src; path = "../../../src"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		00A5C75430658B98009C9CD2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+		00A5C76630658B99009C9CD2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+		00A5C77230658B99009C9CD2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+		00A5C77C30658B99009C9CD2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		00A5C74330658B97009C9CD2 = {
+			isa = PBXGroup;
+			children = (
+				9BF04A2F1278A746A3A52942 /* Signing.xcconfig */,
+				00A5C74830658B98009C9CD2 /* Shared (App) */,
+				00A5C75130658B98009C9CD2 /* Shared (Extension) */,
+				00A5C75930658B98009C9CD2 /* iOS (App) */,
+				00A5C76A30658B99009C9CD2 /* macOS (App) */,
+				00A5C77930658B99009C9CD2 /* iOS (Extension) */,
+				00A5C78330658B99009C9CD2 /* macOS (Extension) */,
+				00A5C75830658B98009C9CD2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		00A5C74830658B98009C9CD2 /* Shared (App) */ = {
+			isa = PBXGroup;
+			children = (
+				00A5C74F30658B98009C9CD2 /* ViewController.swift */,
+				00A5C75030658B98009C9CD2 /* Assets.xcassets */,
+				00A5C74930658B98009C9CD2 /* Resources */,
+			);
+			path = "Shared (App)";
+			sourceTree = "<group>";
+		};
+		00A5C74930658B98009C9CD2 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				00A5C74A30658B98009C9CD2 /* Main.html */,
+				00A5C74C30658B98009C9CD2 /* Icon.png */,
+				00A5C74D30658B98009C9CD2 /* Style.css */,
+				00A5C74E30658B98009C9CD2 /* Script.js */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		00A5C75130658B98009C9CD2 /* Shared (Extension) */ = {
+			isa = PBXGroup;
+			children = (
+				00A5C7A330658B99009C9CD2 /* Resources */,
+				00A5C75230658B98009C9CD2 /* SafariWebExtensionHandler.swift */,
+			);
+			path = "Shared (Extension)";
+			sourceTree = "<group>";
+		};
+		00A5C75830658B98009C9CD2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				00A5C75730658B98009C9CD2 /* Parent Digest.app */,
+				00A5C76930658B99009C9CD2 /* Parent Digest.app */,
+				00A5C77530658B99009C9CD2 /* Parent Digest Extension.appex */,
+				00A5C77F30658B99009C9CD2 /* Parent Digest Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		00A5C75930658B98009C9CD2 /* iOS (App) */ = {
+			isa = PBXGroup;
+			children = (
+				00A5C75A30658B98009C9CD2 /* AppDelegate.swift */,
+				00A5C75C30658B98009C9CD2 /* SceneDelegate.swift */,
+				00A5C75E30658B98009C9CD2 /* LaunchScreen.storyboard */,
+				00A5C76130658B98009C9CD2 /* Main.storyboard */,
+				00A5C76430658B98009C9CD2 /* Info.plist */,
+			);
+			path = "iOS (App)";
+			sourceTree = "<group>";
+		};
+		00A5C76A30658B99009C9CD2 /* macOS (App) */ = {
+			isa = PBXGroup;
+			children = (
+				00A5C76B30658B99009C9CD2 /* AppDelegate.swift */,
+				00A5C76D30658B99009C9CD2 /* Main.storyboard */,
+				00A5C77030658B99009C9CD2 /* Info.plist */,
+			);
+			path = "macOS (App)";
+			sourceTree = "<group>";
+		};
+		00A5C77930658B99009C9CD2 /* iOS (Extension) */ = {
+			isa = PBXGroup;
+			children = (
+				00A5C77A30658B99009C9CD2 /* Info.plist */,
+			);
+			path = "iOS (Extension)";
+			sourceTree = "<group>";
+		};
+		00A5C78330658B99009C9CD2 /* macOS (Extension) */ = {
+			isa = PBXGroup;
+			children = (
+				00A5C78430658B99009C9CD2 /* Info.plist */,
+			);
+			path = "macOS (Extension)";
+			sourceTree = "<group>";
+		};
+		00A5C7A330658B99009C9CD2 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				00A5C7A430658B99009C9CD2 /* icons */,
+				00A5C7A530658B99009C9CD2 /* manifest.json */,
+				00A5C7A630658B99009C9CD2 /* src */,
+			);
+			name = Resources;
+			path = "Shared (Extension)";
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		00A5C75630658B98009C9CD2 /* Parent Digest (iOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 00A5C79930658B99009C9CD2 /* Build configuration list for PBXNativeTarget "Parent Digest (iOS)" */;
+			buildPhases = (
+				00A5C75330658B98009C9CD2 /* Sources */,
+				00A5C75430658B98009C9CD2 /* Frameworks */,
+				00A5C75530658B98009C9CD2 /* Resources */,
+				00A5C79830658B99009C9CD2 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				00A5C77830658B99009C9CD2 /* PBXTargetDependency */,
+			);
+			name = "Parent Digest (iOS)";
+			productName = "Parent Digest (iOS)";
+			productReference = 00A5C75730658B98009C9CD2 /* Parent Digest.app */;
+			productType = "com.apple.product-type.application";
+		};
+		00A5C76830658B99009C9CD2 /* Parent Digest (macOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 00A5C7A030658B99009C9CD2 /* Build configuration list for PBXNativeTarget "Parent Digest (macOS)" */;
+			buildPhases = (
+				00A5C76530658B99009C9CD2 /* Sources */,
+				00A5C76630658B99009C9CD2 /* Frameworks */,
+				00A5C76730658B99009C9CD2 /* Resources */,
+				00A5C79F30658B99009C9CD2 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				00A5C78230658B99009C9CD2 /* PBXTargetDependency */,
+			);
+			name = "Parent Digest (macOS)";
+			productName = "Parent Digest (macOS)";
+			productReference = 00A5C76930658B99009C9CD2 /* Parent Digest.app */;
+			productType = "com.apple.product-type.application";
+		};
+		00A5C77430658B99009C9CD2 /* Parent Digest Extension (iOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 00A5C79530658B99009C9CD2 /* Build configuration list for PBXNativeTarget "Parent Digest Extension (iOS)" */;
+			buildPhases = (
+				00A5C77130658B99009C9CD2 /* Sources */,
+				00A5C77230658B99009C9CD2 /* Frameworks */,
+				00A5C77330658B99009C9CD2 /* Resources */,
+			);
+			buildRules = (
+			);
+			name = "Parent Digest Extension (iOS)";
+			productName = "Parent Digest Extension (iOS)";
+			productReference = 00A5C77530658B99009C9CD2 /* Parent Digest Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		00A5C77E30658B99009C9CD2 /* Parent Digest Extension (macOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 00A5C79C30658B99009C9CD2 /* Build configuration list for PBXNativeTarget "Parent Digest Extension (macOS)" */;
+			buildPhases = (
+				00A5C77B30658B99009C9CD2 /* Sources */,
+				00A5C77C30658B99009C9CD2 /* Frameworks */,
+				00A5C77D30658B99009C9CD2 /* Resources */,
+			);
+			buildRules = (
+			);
+			name = "Parent Digest Extension (macOS)";
+			productName = "Parent Digest Extension (macOS)";
+			productReference = 00A5C77F30658B99009C9CD2 /* Parent Digest Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		00A5C74430658B98009C9CD2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2700;
+				LastUpgradeCheck = 2700;
+				TargetAttributes = {
+					00A5C75630658B98009C9CD2 = {
+						CreatedOnToolsVersion = 27.0;
+					};
+					00A5C76830658B99009C9CD2 = {
+						CreatedOnToolsVersion = 27.0;
+					};
+					00A5C77430658B99009C9CD2 = {
+						CreatedOnToolsVersion = 27.0;
+					};
+					00A5C77E30658B99009C9CD2 = {
+						CreatedOnToolsVersion = 27.0;
+					};
+				};
+			};
+			buildConfigurationList = 00A5C74730658B98009C9CD2 /* Build configuration list for PBXProject "Parent Digest" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 00A5C74330658B97009C9CD2;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 00A5C75830658B98009C9CD2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				00A5C75630658B98009C9CD2 /* Parent Digest (iOS) */,
+				00A5C76830658B99009C9CD2 /* Parent Digest (macOS) */,
+				00A5C77430658B99009C9CD2 /* Parent Digest Extension (iOS) */,
+				00A5C77E30658B99009C9CD2 /* Parent Digest Extension (macOS) */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		00A5C75530658B98009C9CD2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+				00A5C78730658B99009C9CD2 /* Icon.png in Resources */,
+				00A5C76030658B98009C9CD2 /* LaunchScreen.storyboard in Resources */,
+				00A5C78530658B99009C9CD2 /* Main.html in Resources */,
+				00A5C78B30658B99009C9CD2 /* Script.js in Resources */,
+				00A5C78F30658B99009C9CD2 /* Assets.xcassets in Resources */,
+				00A5C76330658B98009C9CD2 /* Main.storyboard in Resources */,
+				00A5C78930658B99009C9CD2 /* Style.css in Resources */,
+			);
+		};
+		00A5C76730658B99009C9CD2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+				00A5C78830658B99009C9CD2 /* Icon.png in Resources */,
+				00A5C78A30658B99009C9CD2 /* Style.css in Resources */,
+				00A5C76F30658B99009C9CD2 /* Main.storyboard in Resources */,
+				00A5C78C30658B99009C9CD2 /* Script.js in Resources */,
+				00A5C79030658B99009C9CD2 /* Assets.xcassets in Resources */,
+				00A5C78630658B99009C9CD2 /* Main.html in Resources */,
+			);
+		};
+		00A5C77330658B99009C9CD2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+				00A5C7AC30658B99009C9CD2 /* src in Resources */,
+				00A5C7AB30658B99009C9CD2 /* manifest.json in Resources */,
+				00A5C7AA30658B99009C9CD2 /* icons in Resources */,
+			);
+		};
+		00A5C77D30658B99009C9CD2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+				00A5C7A930658B99009C9CD2 /* src in Resources */,
+				00A5C7A830658B99009C9CD2 /* manifest.json in Resources */,
+				00A5C7A730658B99009C9CD2 /* icons in Resources */,
+			);
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		00A5C75330658B98009C9CD2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				00A5C78D30658B99009C9CD2 /* ViewController.swift in Sources */,
+				00A5C75B30658B98009C9CD2 /* AppDelegate.swift in Sources */,
+				00A5C75D30658B98009C9CD2 /* SceneDelegate.swift in Sources */,
+			);
+		};
+		00A5C76530658B99009C9CD2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				00A5C78E30658B99009C9CD2 /* ViewController.swift in Sources */,
+				00A5C76C30658B99009C9CD2 /* AppDelegate.swift in Sources */,
+			);
+		};
+		00A5C77130658B99009C9CD2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				00A5C79130658B99009C9CD2 /* SafariWebExtensionHandler.swift in Sources */,
+			);
+		};
+		00A5C77B30658B99009C9CD2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				00A5C79230658B99009C9CD2 /* SafariWebExtensionHandler.swift in Sources */,
+			);
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		00A5C77830658B99009C9CD2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 00A5C77430658B99009C9CD2 /* Parent Digest Extension (iOS) */;
+			targetProxy = 00A5C77730658B99009C9CD2 /* PBXContainerItemProxy */;
+		};
+		00A5C78230658B99009C9CD2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 00A5C77E30658B99009C9CD2 /* Parent Digest Extension (macOS) */;
+			targetProxy = 00A5C78130658B99009C9CD2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		00A5C74A30658B98009C9CD2 /* Main.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				00A5C74B30658B98009C9CD2 /* Base */,
+			);
+			name = Main.html;
+			sourceTree = "<group>";
+		};
+		00A5C75E30658B98009C9CD2 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				00A5C75F30658B98009C9CD2 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		00A5C76130658B98009C9CD2 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				00A5C76230658B98009C9CD2 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		00A5C76D30658B99009C9CD2 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				00A5C76E30658B99009C9CD2 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		00A5C79330658B99009C9CD2 /* Debug configuration for PBXProject "Parent Digest" */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9BF04A2F1278A746A3A52942 /* Signing.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		00A5C79430658B99009C9CD2 /* Release configuration for PBXProject "Parent Digest" */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9BF04A2F1278A746A3A52942 /* Signing.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		00A5C79630658B99009C9CD2 /* Debug configuration for PBXNativeTarget "Parent Digest Extension (iOS)" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Parent Digest";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jeffreywescott.Parent-Digest.Extension";
+				PRODUCT_NAME = "Parent Digest Extension";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		00A5C79730658B99009C9CD2 /* Release configuration for PBXNativeTarget "Parent Digest Extension (iOS)" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Parent Digest";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jeffreywescott.Parent-Digest.Extension";
+				PRODUCT_NAME = "Parent Digest Extension";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		00A5C79A30658B99009C9CD2 /* Debug configuration for PBXNativeTarget "Parent Digest (iOS)" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Parent Digest";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jeffreywescott.Parent-Digest";
+				PRODUCT_NAME = "Parent Digest";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		00A5C79B30658B99009C9CD2 /* Release configuration for PBXNativeTarget "Parent Digest (iOS)" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Parent Digest";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jeffreywescott.Parent-Digest";
+				PRODUCT_NAME = "Parent Digest";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		00A5C79D30658B99009C9CD2 /* Debug configuration for PBXNativeTarget "Parent Digest Extension (macOS)" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Parent Digest";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jeffreywescott.Parent-Digest.Extension";
+				PRODUCT_NAME = "Parent Digest Extension";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		00A5C79E30658B99009C9CD2 /* Release configuration for PBXNativeTarget "Parent Digest Extension (macOS)" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Parent Digest";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jeffreywescott.Parent-Digest.Extension";
+				PRODUCT_NAME = "Parent Digest Extension";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		00A5C7A130658B99009C9CD2 /* Debug configuration for PBXNativeTarget "Parent Digest (macOS)" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Parent Digest";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jeffreywescott.Parent-Digest";
+				PRODUCT_NAME = "Parent Digest";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		00A5C7A230658B99009C9CD2 /* Release configuration for PBXNativeTarget "Parent Digest (macOS)" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Parent Digest";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jeffreywescott.Parent-Digest";
+				PRODUCT_NAME = "Parent Digest";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		00A5C74730658B98009C9CD2 /* Build configuration list for PBXProject "Parent Digest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				00A5C79330658B99009C9CD2 /* Debug configuration for PBXProject "Parent Digest" */,
+				00A5C79430658B99009C9CD2 /* Release configuration for PBXProject "Parent Digest" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		00A5C79530658B99009C9CD2 /* Build configuration list for PBXNativeTarget "Parent Digest Extension (iOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				00A5C79630658B99009C9CD2 /* Debug configuration for PBXNativeTarget "Parent Digest Extension (iOS)" */,
+				00A5C79730658B99009C9CD2 /* Release configuration for PBXNativeTarget "Parent Digest Extension (iOS)" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		00A5C79930658B99009C9CD2 /* Build configuration list for PBXNativeTarget "Parent Digest (iOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				00A5C79A30658B99009C9CD2 /* Debug configuration for PBXNativeTarget "Parent Digest (iOS)" */,
+				00A5C79B30658B99009C9CD2 /* Release configuration for PBXNativeTarget "Parent Digest (iOS)" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		00A5C79C30658B99009C9CD2 /* Build configuration list for PBXNativeTarget "Parent Digest Extension (macOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				00A5C79D30658B99009C9CD2 /* Debug configuration for PBXNativeTarget "Parent Digest Extension (macOS)" */,
+				00A5C79E30658B99009C9CD2 /* Release configuration for PBXNativeTarget "Parent Digest Extension (macOS)" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		00A5C7A030658B99009C9CD2 /* Build configuration list for PBXNativeTarget "Parent Digest (macOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				00A5C7A130658B99009C9CD2 /* Debug configuration for PBXNativeTarget "Parent Digest (macOS)" */,
+				00A5C7A230658B99009C9CD2 /* Release configuration for PBXNativeTarget "Parent Digest (macOS)" */,
+			);
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 00A5C74430658B98009C9CD2 /* Project object */;
+	validationLevel = 1;
+}

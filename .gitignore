@@ -20,5 +20,7 @@ Thumbs.db
 *.har
 /test/fixtures/real-*
 
-# Your Apple Developer team ID for signing the Safari build (see README)
-.apple-team-id
+
+# Local Xcode signing settings (Apple team ID)
+safari/Config/Local.xcconfig
+safari/**/xcuserdata/

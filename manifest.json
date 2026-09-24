@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Parent Digest for Veracross",
   "short_name": "Parent Digest",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "See what changed in your Veracross parent portal: assignments, teacher feedback, attendance, class posts and school messages.",
   "action": {
     "default_title": "Open Parent Digest",

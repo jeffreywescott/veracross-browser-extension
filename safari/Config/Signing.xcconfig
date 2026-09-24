@@ -1,0 +1,6 @@
+// Shared by every target. Put your own signing settings in Local.xcconfig next to this file
+// (git-ignored), e.g.:
+//
+//   DEVELOPMENT_TEAM = ABCDE12345
+//
+#include? "Local.xcconfig"

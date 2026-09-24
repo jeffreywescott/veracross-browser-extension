@@ -74,31 +74,21 @@ Differences from Chrome:
 - If Safari doesn't send your Veracross login cookies with the extension's requests, the extension runs them inside a background Veracross tab instead. **Diagnostics → fetch mode** shows which method was used.
 - On-device translation isn't available.
 
-#### Build the Xcode project (needs a Mac with Xcode)
+#### Build and run from Xcode (needs a Mac with Xcode)
 
-```bash
-npm install
-npm run safari
+The Xcode project is in the repo at `safari/Parent Digest/Parent Digest.xcodeproj`. It has a Mac app and an iOS app, each wrapping the extension. The extension's files are the repo's own `manifest.json`, `src/` and `icons/`, so code changes show up on the next build with no copying.
+
+**Signing:** create `safari/Config/Local.xcconfig` (git-ignored) with your Apple team ID:
+
+```
+DEVELOPMENT_TEAM = ABCDE12345
 ```
 
-This copies only `manifest.json`, `src/` and `icons/` into `dist/safari-ext`. It then generates one Xcode project, `dist/safari/Parent Digest/Parent Digest.xcodeproj`, containing a Mac app and an iOS app, each with the extension inside. Open it in Xcode.
+Every target picks it up. Without it, Xcode stops with *"Signing for … requires a development team"*. Your team ID is shown at developer.apple.com → Account → Membership details. A paid Apple Developer account avoids the unsigned-extension step below on the Mac, and the 7-day expiry of free builds on iOS.
 
-**Signing:** every target needs your Apple **Team**, or Xcode stops with *"Signing for … requires a development team"*. The easy way is to put your team ID in a file before generating the project:
+Then open the project with `npm run safari`. After changing the code, press **⌘R** again.
 
-```bash
-echo YOURTEAMID > .apple-team-id
-npm run safari
-```
-
-`npm run safari` then sets the Team on all targets, Mac and iOS. You can also set `APPLE_TEAM_ID` in the environment instead. `.apple-team-id` is git-ignored. Your team ID is shown at developer.apple.com → Account → Membership, or in brackets after your name in Xcode's Team menu.
-
-You can also skip the file and pick the **Team** by hand in Xcode: select the project in the sidebar, then open **Signing & Capabilities** for each target you'll run:
-- On the Mac: *Parent Digest (macOS)* and *Parent Digest Extension (macOS)*.
-- On iOS: *Parent Digest (iOS)* and *Parent Digest Extension (iOS)*.
-
-Settings picked by hand are lost the next time you run `npm run safari`. A paid Apple Developer account avoids the unsigned-extension step below on the Mac. On iOS it also avoids the 7-day expiry of free Personal Team builds. For the Mac only, **Sign to Run Locally** also works, with no Team.
-
-After changing the code, run `npm run safari:sync` and press **⌘R** in Xcode again. Only use `npm run safari` to regenerate the project from scratch. It resets any signing settings picked by hand in Xcode; a Team from `.apple-team-id` is set again automatically.
+To give the Safari version to other people, use TestFlight. See [store/APPLE.md](store/APPLE.md).
 
 #### Mac
 
@@ -125,6 +115,7 @@ Then open the app once, and turn on the extension under **Manage Extensions** in
 ## Using it
 
 - **Refresh** reads everything. The first run takes about a minute.
+- **Try it with sample data** (on the setup screen) shows the whole dashboard with made-up children and messages. It reads nothing from Veracross and saves nothing.
 - **NEW / CHANGED / REMOVED** badges compare the latest data with what you last **marked as seen**. Refreshing again doesn't clear them; only *Mark all as seen* does. That also saves the digest to **History**.
 - **First run:** nothing has been "seen" yet, so only items from the last 14 days are marked new. You can change this in Settings.
 - **Coming up** lists everything due in the next 7 days (3, 7 or 14 in Settings), changed or not. It's labelled as context so it isn't mistaken for a change.
