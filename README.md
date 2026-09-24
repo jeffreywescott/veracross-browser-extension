@@ -1,6 +1,6 @@
 # Parent Digest for Veracross
 
-A browser extension for Chrome and Safari. It reads the Veracross parent portal with the session you're already logged in with, and shows:
+A Chrome extension (Safari support is experimental). It reads the Veracross parent portal with the session you're already logged in with, and shows:
 
 - **Action items.** What needs attention, everything new or changed since you last marked things seen, what's due in the next few days, and past-due items still marked *Pending*.
 - **One feed per child**, newest first. It covers assignments (new, changed with before → after, or removed), teacher feedback (word for word), attendance, class posts and school messages.
@@ -17,28 +17,47 @@ No passwords, no server, and no data leaves the browser.
 
 **Caveat:** this uses undocumented portal endpoints, not the official Veracross API. They can change without notice, and automated access may conflict with Veracross's terms of use. Keep refreshes infrequent.
 
-## Install
+## Install (Chrome, Developer mode)
 
-### Chrome (or Edge, Brave, Arc)
+The extension isn't in the Chrome Web Store yet. You install it from a copy of this folder using Chrome's **Developer mode**. This works in Chrome and other Chromium browsers: Edge, Brave, Arc.
 
-1. Open `chrome://extensions` and turn on **Developer mode**.
-2. Click **Load unpacked** and pick this folder.
-3. Log in to your Veracross parent portal, then click the extension's toolbar icon **on a portal page**. That's how it learns your school route, e.g. `ebgis`. You can also type the route in Settings.
-4. Press **Refresh**.
+### 1. Get the code
 
-### Safari (macOS)
+The repository is private for now, so you need to have been given access. Then either clone it:
 
 ```bash
-npm run safari
+git clone https://github.com/jeffreywescott/veracross-browser-extension.git
 ```
 
-This wraps the extension in an Xcode project under `dist/safari`. Open it in Xcode and run the macOS app once. Then, in Safari:
+or, on the GitHub page, click **Code → Download ZIP** and unzip it. Put the folder somewhere permanent, such as `Documents`. Chrome loads the extension from that folder every time it starts, so it has to stay where it is.
 
-1. Turn on **Settings → Advanced → Show features for web developers**.
-2. Choose **Develop → Allow Unsigned Extensions**. This resets every time Safari quits.
-3. Enable **Parent Digest** under **Settings → Extensions**, and allow it on the three Veracross sites.
+### 2. Load it into Chrome
 
-Safari differences: there's no background schedule (Safari has no offscreen API), so you refresh by hand. If Safari keeps cookies away from extension requests, the extension runs each request inside a Veracross tab instead (see *How it works*).
+1. Go to `chrome://extensions` (type it into the address bar).
+2. Turn on **Developer mode** with the switch at the top right.
+3. Click **Load unpacked**.
+4. Choose the folder that contains `manifest.json` (the top level of this repo) and click **Select**.
+5. **Veracross Parent Digest** appears in the list. To keep it in the toolbar, click the puzzle-piece icon next to the address bar and pin it.
+
+Chrome may show a banner about developer-mode extensions when it starts. That's normal for extensions installed this way. You can dismiss it.
+
+### 3. First run
+
+1. Log in to your Veracross parent portal as usual, e.g. `https://portals.veracross.com/<school>/parent`.
+2. While you're **on a portal page**, click the Parent Digest toolbar icon. That's how it learns your school's route, e.g. `ebgis`. You can also type the route in the dashboard's Settings.
+3. On the dashboard that opens, press **Refresh**. The first refresh reads every class for every child and takes about a minute.
+
+### Updating
+
+Get the new code with `git pull`, or download and unzip it into the same folder. Then open `chrome://extensions` and click the **reload** arrow on the Veracross Parent Digest card, and reload any open dashboard tab. Reloading only the dashboard tab can leave Chrome running the old code. If the reload arrow doesn't pick up the change, click **Remove**, then **Load unpacked** again. Your stored data survives a reload, but **Remove** deletes it.
+
+### Uninstalling
+
+Click **Remove** on the Veracross Parent Digest card in `chrome://extensions`. That also deletes everything the extension stored.
+
+### Safari (experimental, untested)
+
+`npm run safari` turns the extension into an Xcode project under `dist/safari`, and the project builds. It hasn't been tried in Safari yet. Safari also has no background schedule, so you'd refresh by hand. If you want to try it: run the app from Xcode once, enable **Develop → Allow Unsigned Extensions** (this resets when Safari quits), then turn on Parent Digest in **Settings → Extensions** and allow it on the three Veracross sites.
 
 ## Using it
 
@@ -83,14 +102,9 @@ For assignments it compares due date, status, score, title, type and notes. If a
 - **First run:** the last 14 days are marked new (configurable, including "everything").
 - **Distribution:** share it privately with EBGIS parents as an unpacked extension or zip (`npm run zip`) before any store listing. The Chrome Web Store would need a privacy policy, and should wait until it has been tested at a second school.
 
-## Needs checking against the real portal
+## Portal compatibility
 
-The parsers were written from the brief and tested against synthetic HTML in `test/fixtures/`, not real portal pages. After your first real refresh, open **Diagnostics** at the bottom of the dashboard. It shows, per child, how many classes, assignments, feedback entries and updates were found, plus every warning. Things most likely to need tuning:
-
-- **Recent updates.** The markup is unknown, so the parser looks for type labels ("DAILY ATTENDANCE", "NEW POST", …) under date headings. If Diagnostics shows 0 updates, save that page's HTML into `test/fixtures/` (strip names first) and adjust `parseRecentUpdates`.
-- **Children's names and class names.** If a tab says "Student 1234", or a class shows as "Class 5678" or is flagged "matched by page order", adjust `parseChildren` or `parseEnrollments`.
-- **Message bodies.** If a body in the dashboard is empty or mostly navigation, adjust the selector in `parseMessageDetail`.
-- **Safari cookies.** Check whether direct requests work or whether it falls back to in-tab requests. The mode used is listed under Diagnostics as "fetch mode".
+The HTML parsers were checked against the real EBGIS portal in September 2026. The layouts they expect are captured in `test/fixtures/*-ebgis.html`, with made-up names and content. Veracross can change its pages at any time, and other schools may be on different portal versions. If a refresh looks wrong, open **Diagnostics** at the bottom of the dashboard. It shows, per child, how many classes, assignments, feedback entries and updates were found, plus any warnings. Not yet seen live: class post pages on `classes.veracross.com`, and assignments with scores entered.
 
 ## Development
 
@@ -122,3 +136,7 @@ src/lib/store.js           storage.local wrapper
 src/lib/dates.js, text.js  parsing helpers, deadline detection
 src/lib/translate.js       optional on-device translation
 ```
+
+## License
+
+[MIT](LICENSE) © 2026 Jeffrey Wescott. Not affiliated with or endorsed by Veracross.
