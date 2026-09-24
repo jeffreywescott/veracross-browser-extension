@@ -11,6 +11,9 @@ No passwords, no server, and no data leaves the browser.
 
 ## Privacy
 
+Full policy: [PRIVACY.md](PRIVACY.md).
+
+
 - The extension only talks to `portals.veracross.com`, `portals-embed.veracross.com` and `classes.veracross.com`. The manifest's `connect-src` enforces this, and so does a host allowlist in `src/lib/fetcher.js`.
 - It uses your existing login. It never asks for, sees or stores a password. If your session has expired, it tells you to log in to the portal yourself.
 - Everything it keeps is in `chrome.storage.local` on your computer: the latest snapshot, the snapshot you last marked as seen, and the last 12 digests. There are no analytics, no remote logging and no sync. You can delete it all with **Settings → Delete all stored data**.
@@ -39,7 +42,7 @@ or, on the GitHub page, click **Code → Download ZIP** and unzip it. Put the fo
 2. Turn on **Developer mode** with the switch at the top right.
 3. Click **Load unpacked**.
 4. Choose the folder that contains `manifest.json` (the top level of this repo) and click **Select**.
-5. **Veracross Parent Digest** appears in the list. To keep it in the toolbar, click the puzzle-piece icon next to the address bar and pin it.
+5. **Parent Digest for Veracross** appears in the list. To keep it in the toolbar, click the puzzle-piece icon next to the address bar and pin it.
 
 Chrome may show a banner about developer-mode extensions when it starts. That's normal for extensions installed this way. You can dismiss it.
 
@@ -51,11 +54,11 @@ Chrome may show a banner about developer-mode extensions when it starts. That's 
 
 ### Updating
 
-Get the new code with `git pull`, or download and unzip it into the same folder. Then open `chrome://extensions` and click the **reload** arrow on the Veracross Parent Digest card, and reload any open dashboard tab. Reloading only the dashboard tab can leave Chrome running the old code. If the reload arrow doesn't pick up the change, click **Remove**, then **Load unpacked** again. Your stored data survives a reload, but **Remove** deletes it.
+Get the new code with `git pull`, or download and unzip it into the same folder. Then open `chrome://extensions` and click the **reload** arrow on the Parent Digest for Veracross card, and reload any open dashboard tab. Reloading only the dashboard tab can leave Chrome running the old code. If the reload arrow doesn't pick up the change, click **Remove**, then **Load unpacked** again. Your stored data survives a reload, but **Remove** deletes it.
 
 ### Uninstalling
 
-Click **Remove** on the Veracross Parent Digest card in `chrome://extensions`. That also deletes everything the extension stored.
+Click **Remove** on the Parent Digest for Veracross card in `chrome://extensions`. That also deletes everything the extension stored.
 
 ### Safari (Mac, iPhone and iPad; built with Xcode)
 
