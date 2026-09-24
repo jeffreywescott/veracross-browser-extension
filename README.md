@@ -1,13 +1,13 @@
 # Parent Digest for Veracross
 
-A browser extension for Chrome and Safari (macOS). It reads the Veracross parent portal with the session you're already logged in with, and shows:
+A browser extension for Chrome and Safari (Mac, iPhone and iPad). It reads the Veracross parent portal with the session you're already logged in with, and shows:
 
 - **Action items.** What needs attention, everything new or changed since you last marked things seen, what's due in the next few days, and past-due items still marked *Pending*.
 - **One feed per child**, newest first. It covers assignments (new, changed with before → after, or removed), teacher feedback (word for word), attendance, class posts and school messages.
 
 No passwords, no server, and no data leaves the browser.
 
-> **Safari:** works on macOS. It has been run against the real portal, but less than Chrome, and it has to be built with Xcode (see below). There are no automatic checks and no translation in Safari.
+> **Safari:** works on the Mac and in the iPhone Simulator (not yet tried on a physical iPhone or on iPad). It has had less use than Chrome, it has to be built with Xcode (see below), and it has no automatic checks or translation.
 
 ## Privacy
 
@@ -57,33 +57,50 @@ Get the new code with `git pull`, or download and unzip it into the same folder.
 
 Click **Remove** on the Veracross Parent Digest card in `chrome://extensions`. That also deletes everything the extension stored.
 
-### Safari (macOS, built with Xcode)
+### Safari (Mac, iPhone and iPad; built with Xcode)
 
-Safari works: a refresh against the real portal succeeded in Safari on macOS (September 2026). It has had less use than Chrome, so if something looks off, check **Diagnostics** first.
+Safari works:
+- **Mac:** a refresh against the real portal succeeded in Safari on macOS (September 2026).
+- **iPhone:** works in the iOS Simulator (iPhone 17, iOS 26.4) against the real portal. It hasn't been tried on a physical iPhone yet.
+- **iPad:** the same build should work, but it hasn't been tried.
+
+Safari has had less use than Chrome, so if something looks off, check **Diagnostics** first.
 
 Differences from Chrome:
 - There's no automatic daily or weekly check (Safari lacks the offscreen API), so you refresh by hand. The setting is greyed out.
 - If Safari doesn't send your Veracross login cookies with the extension's requests, the extension runs them inside a background Veracross tab instead. **Diagnostics → fetch mode** shows which method was used.
 - On-device translation isn't available.
-- Without an Apple developer signature, **Allow Unsigned Extensions** has to be turned back on each time Safari restarts.
 
-To install it (needs a Mac with Xcode):
+#### Build the Xcode project (needs a Mac with Xcode)
 
-1. Generate the Xcode project. This copies only `manifest.json`, `src/` and `icons/` into `dist/safari-ext` and wraps them in a macOS app:
-   ```bash
-   npm install
-   npm run safari
-   ```
-2. Open `dist/safari/Parent Digest/Parent Digest.xcodeproj` in Xcode.
-3. Set up signing for **both** targets, *Parent Digest* and *Parent Digest Extension*. Select the project in the sidebar, then open each target's **Signing & Capabilities** tab. Either:
-   - pick your **Team** (a free Personal Team from your Apple ID works), or
-   - set **Signing Certificate** to **Sign to Run Locally**.
-4. Choose the **Parent Digest** scheme and **My Mac** as the destination, then press **⌘R**. A small app window opens saying the extension is off. Click **Quit and Open Safari Settings…**.
-5. In Safari, turn on **Settings → Advanced → Show features for web developers**. Then allow unsigned extensions: **Develop → Allow Unsigned Extensions** in older Safari, or **Settings → Developer → Allow unsigned extensions** in newer versions. This resets every time Safari quits.
-6. In **Settings → Extensions**, tick **Parent Digest**. Under **Edit Websites…**, set `portals.veracross.com`, `portals-embed.veracross.com` and `classes.veracross.com` to **Allow**. If Safari asks when you click the toolbar icon, choose **Always Allow on This Website**.
-7. Log in to the portal in Safari, click the Parent Digest toolbar icon on a portal page, and press **Refresh**. Check **Diagnostics** at the bottom of the dashboard, especially the `fetch mode` line.
+```bash
+npm install
+npm run safari
+```
 
-After changing the code, run `npm run safari:sync` and press **⌘R** in Xcode again. Only use `npm run safari` to regenerate the project from scratch; it resets the signing settings from step 3.
+This copies only `manifest.json`, `src/` and `icons/` into `dist/safari-ext`. It then generates one Xcode project, `dist/safari/Parent Digest/Parent Digest.xcodeproj`, containing a Mac app and an iOS app, each with the extension inside. Open it in Xcode.
+
+**Signing:** select the project in the sidebar and open **Signing & Capabilities** for each target you'll run:
+- On the Mac: *Parent Digest (macOS)* and *Parent Digest Extension (macOS)*.
+- On iOS: *Parent Digest (iOS)* and *Parent Digest Extension (iOS)*.
+
+Pick your **Team**. A paid Apple Developer account avoids the unsigned-extension step below on the Mac. On iOS it also avoids the 7-day expiry that free Personal Team builds have. On the Mac only, you can set **Signing Certificate** to **Sign to Run Locally** instead.
+
+After changing the code, run `npm run safari:sync` and press **⌘R** in Xcode again. Only use `npm run safari` to regenerate the project from scratch, because it resets the signing settings.
+
+#### Mac
+
+1. Choose the **Parent Digest (macOS)** scheme and **My Mac**, then press **⌘R**. A small app window opens saying the extension is off. Click **Quit and Open Safari Settings…**.
+2. If the build isn't signed with a developer Team, allow unsigned extensions. First turn on **Settings → Advanced → Show features for web developers**. Then use **Develop → Allow Unsigned Extensions** in older Safari, or **Settings → Developer → Allow unsigned extensions** in newer versions. This resets every time Safari quits.
+3. In **Settings → Extensions**, tick **Parent Digest**. Under **Edit Websites…**, set `portals.veracross.com`, `portals-embed.veracross.com` and `classes.veracross.com` to **Allow**. If Safari asks when you click the toolbar icon, choose **Always Allow on This Website**.
+4. Log in to the portal in Safari, click the Parent Digest toolbar icon on a portal page, and press **Refresh**.
+
+#### iPhone / iPad
+
+1. Choose the **Parent Digest (iOS)** scheme and either a simulator or your connected device, then press **⌘R**. On a real device, the first run may ask you to trust the developer: **Settings → General → VPN & Device Management**.
+2. In Safari on the device, open the portal and log in.
+3. Tap the page-menu icon at the left of the address bar, then **Manage Extensions**, and turn on **Parent Digest**. You can also do this under **Settings → Apps → Safari → Extensions**. Allow it on the Veracross sites; **Always Allow** is best.
+4. From the same page menu, tap **Parent Digest** to open the dashboard, then press **Refresh**.
 
 ## Using it
 
