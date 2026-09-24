@@ -25,7 +25,7 @@ The extension isn't in the Chrome Web Store yet. You install it from a copy of t
 
 ### 1. Get the code
 
-The repository is private for now, so you need to have been given access. Then either clone it:
+Either clone it:
 
 ```bash
 git clone https://github.com/jeffreywescott/veracross-browser-extension.git
