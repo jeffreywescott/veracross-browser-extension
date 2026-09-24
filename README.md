@@ -1,13 +1,13 @@
 # Parent Digest for Veracross
 
-A Chrome extension. It reads the Veracross parent portal with the session you're already logged in with, and shows:
+A browser extension for Chrome and Safari (macOS). It reads the Veracross parent portal with the session you're already logged in with, and shows:
 
 - **Action items.** What needs attention, everything new or changed since you last marked things seen, what's due in the next few days, and past-due items still marked *Pending*.
 - **One feed per child**, newest first. It covers assignments (new, changed with before → after, or removed), teacher feedback (word for word), attendance, class posts and school messages.
 
 No passwords, no server, and no data leaves the browser.
 
-> **Safari: completely untested so far.** Only Chrome has been used with the real portal. A Safari build can be generated, but it has never been loaded or run in Safari. Don't rely on it.
+> **Safari:** works on macOS. It has been run against the real portal, but less than Chrome, and it has to be built with Xcode (see below). There are no automatic checks and no translation in Safari.
 
 ## Privacy
 
@@ -57,18 +57,17 @@ Get the new code with `git pull`, or download and unzip it into the same folder.
 
 Click **Remove** on the Veracross Parent Digest card in `chrome://extensions`. That also deletes everything the extension stored.
 
-### Safari (completely untested)
+### Safari (macOS, built with Xcode)
 
-> **Warning:** nobody has run this extension in Safari yet. It has never been loaded in Safari, never logged in, and never refreshed. Expect it to break, possibly in ways that look like "Please log in to Veracross".
+Safari works: a refresh against the real portal succeeded in Safari on macOS (September 2026). It has had less use than Chrome, so if something looks off, check **Diagnostics** first.
 
-What *has* been checked: `npm run safari` turns the extension into an Xcode project under `dist/safari`, and that project builds. That's all.
-
-Known or likely differences:
-- There's no automatic daily or weekly check (Safari lacks the offscreen API), so you'd refresh by hand.
-- Safari may not send your Veracross login cookies with the extension's requests. The extension would then fall back to running each request inside a background Veracross tab. That fallback is also untested.
+Differences from Chrome:
+- There's no automatic daily or weekly check (Safari lacks the offscreen API), so you refresh by hand. The setting is greyed out.
+- If Safari doesn't send your Veracross login cookies with the extension's requests, the extension runs them inside a background Veracross tab instead. **Diagnostics → fetch mode** shows which method was used.
 - On-device translation isn't available.
+- Without an Apple developer signature, **Allow Unsigned Extensions** has to be turned back on each time Safari restarts.
 
-If you want to try it anyway (needs a Mac with Xcode):
+To install it (needs a Mac with Xcode):
 
 1. Generate the Xcode project. This copies only `manifest.json`, `src/` and `icons/` into `dist/safari-ext` and wraps them in a macOS app:
    ```bash
@@ -148,7 +147,7 @@ To work on the UI without a Veracross login, serve the repo and open `src/pages/
 
 ```
 manifest.json
-src/background.js          toolbar click, school detection, alarms, notifications (no imports, to keep Safari possible)
+src/background.js          toolbar click, school detection, alarms, notifications (no imports, for Safari compatibility)
 src/pages/dashboard.*      the digest page
 src/pages/offscreen.*      scheduled checks (Chrome)
 src/pages/demo.js          fake data for UI work
