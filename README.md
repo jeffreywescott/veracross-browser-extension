@@ -7,7 +7,7 @@ A browser extension for Chrome and Safari (Mac, iPhone and iPad). It reads the V
 
 No passwords, no server, and no data leaves the browser.
 
-> **Safari:** works on the Mac and in the iPhone Simulator (not yet tried on a physical iPhone or on iPad). It has had less use than Chrome, it has to be built with Xcode (see below), and it has no automatic checks or translation.
+> **Safari:** works on the Mac and on iPhone (not yet tried on iPad). It has had less use than Chrome, it has to be built with Xcode (see below), and it has no automatic checks or translation.
 
 ## Privacy
 
@@ -61,7 +61,7 @@ Click **Remove** on the Veracross Parent Digest card in `chrome://extensions`. T
 
 Safari works:
 - **Mac:** a refresh against the real portal succeeded in Safari on macOS (September 2026).
-- **iPhone:** works in the iOS Simulator (iPhone 17, iOS 26.4) against the real portal. It hasn't been tried on a physical iPhone yet.
+- **iPhone:** works against the real portal on a physical iPhone 15 Pro (iOS 27.0) and in the iOS Simulator (iPhone 17, iOS 26.4).
 - **iPad:** the same build should work, but it hasn't been tried.
 
 Safari has had less use than Chrome, so if something looks off, check **Diagnostics** first.
@@ -110,6 +110,14 @@ After changing the code, run `npm run safari:sync` and press **⌘R** in Xcode a
 2. In Safari on the device, open the portal and log in.
 3. Tap the page-menu icon at the left of the address bar, then **Manage Extensions**, and turn on **Parent Digest**. You can also do this under **Settings → Apps → Safari → Extensions**. Allow it on the Veracross sites; **Always Allow** is best.
 4. From the same page menu, tap **Parent Digest** to open the dashboard, then press **Refresh**.
+
+**Build succeeded but the extension isn't in Safari?** Check that the app actually got onto the phone. **Parent Digest** should appear on the home screen, and `xcrun devicectl device info apps --device <your-phone>` should list `com.jeffreywescott.Parent-Digest`. Right after you turn on Developer Mode, Xcode can report a successful build without installing anything. Wait until the phone shows as fully connected in **Window → Devices and Simulators**, then press **⌘R** again. You can also install the last build directly:
+
+```bash
+xcrun devicectl device install app --device <your-phone> ~/Library/Developer/Xcode/DerivedData/Parent_Digest-*/Build/Products/Debug-iphoneos/"Parent Digest.app"
+```
+
+Then open the app once, and turn on the extension under **Manage Extensions** in Safari. If it still isn't listed, quit Safari from the app switcher and reopen it.
 
 ## Using it
 
