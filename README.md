@@ -68,12 +68,23 @@ Known or likely differences:
 - Safari may not send your Veracross login cookies with the extension's requests. The extension would then fall back to running each request inside a background Veracross tab. That fallback is also untested.
 - On-device translation isn't available.
 
-If you want to try it anyway:
-1. Run the app from Xcode once.
-2. Enable **Develop → Allow Unsigned Extensions**. This resets when Safari quits.
-3. Turn on Parent Digest in **Settings → Extensions** and allow it on the three Veracross sites.
+If you want to try it anyway (needs a Mac with Xcode):
 
-Then open **Diagnostics** at the bottom of the dashboard and check the `fetch mode` line.
+1. Generate the Xcode project. This copies only `manifest.json`, `src/` and `icons/` into `dist/safari-ext` and wraps them in a macOS app:
+   ```bash
+   npm install
+   npm run safari
+   ```
+2. Open `dist/safari/Parent Digest/Parent Digest.xcodeproj` in Xcode.
+3. Set up signing for **both** targets, *Parent Digest* and *Parent Digest Extension*. Select the project in the sidebar, then open each target's **Signing & Capabilities** tab. Either:
+   - pick your **Team** (a free Personal Team from your Apple ID works), or
+   - set **Signing Certificate** to **Sign to Run Locally**.
+4. Choose the **Parent Digest** scheme and **My Mac** as the destination, then press **⌘R**. A small app window opens saying the extension is off. Click **Quit and Open Safari Settings…**.
+5. In Safari, turn on **Settings → Advanced → Show features for web developers**. Then allow unsigned extensions: **Develop → Allow Unsigned Extensions** in older Safari, or **Settings → Developer → Allow unsigned extensions** in newer versions. This resets every time Safari quits.
+6. In **Settings → Extensions**, tick **Parent Digest**. Under **Edit Websites…**, set `portals.veracross.com`, `portals-embed.veracross.com` and `classes.veracross.com` to **Allow**. If Safari asks when you click the toolbar icon, choose **Always Allow on This Website**.
+7. Log in to the portal in Safari, click the Parent Digest toolbar icon on a portal page, and press **Refresh**. Check **Diagnostics** at the bottom of the dashboard, especially the `fetch mode` line.
+
+After changing the code, run `npm run safari:sync` and press **⌘R** in Xcode again. Only use `npm run safari` to regenerate the project from scratch; it resets the signing settings from step 3.
 
 ## Using it
 
