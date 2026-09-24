@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "Veracross Parent Digest",
+  "short_name": "Parent Digest",
+  "version": "0.1.0",
+  "description": "A private digest of what changed in the Veracross parent portal: assignments, teacher feedback, attendance, class posts and school messages.",
+  "action": {
+    "default_title": "Open Parent Digest",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "permissions": [
+    "storage",
+    "unlimitedStorage",
+    "alarms",
+    "scripting",
+    "notifications",
+    "offscreen"
+  ],
+  "host_permissions": [
+    "https://portals.veracross.com/*",
+    "https://portals-embed.veracross.com/*",
+    "https://classes.veracross.com/*"
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; connect-src https://portals.veracross.com https://portals-embed.veracross.com https://classes.veracross.com"
+  }
+}

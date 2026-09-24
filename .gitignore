@@ -1,0 +1,21 @@
+# Dependencies and build output
+node_modules/
+dist/
+coverage/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Local-only config and logs
+.env
+.env.*
+*.log
+.claude/settings.local.json
+
+# Never commit real portal pages; fixtures must use made-up content
+*.har
+/test/fixtures/real-*

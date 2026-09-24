@@ -1,0 +1,16 @@
+{
+  "name": "veracross-parent-digest",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Browser extension: a private digest of the Veracross parent portal.",
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "zip": "rm -f dist/parent-digest.zip && mkdir -p dist && zip -r dist/parent-digest.zip manifest.json src icons -x '*.DS_Store' 'src/pages/demo.js'",
+    "safari": "xcrun safari-web-extension-converter . --project-location dist/safari --app-name 'Parent Digest' --bundle-identifier com.example.parentdigest --swift --macos-only --no-open --force",
+    "icons": "python3 scripts/make-icons.py"
+  },
+  "devDependencies": {
+    "linkedom": "^0.18.0"
+  }
+}
