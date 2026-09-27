@@ -115,7 +115,13 @@ test('message detail: body, sender, date, events section', () => {
 });
 
 test('login page detection', () => {
-  assert.ok(looksLikeLoginPage('<form><input type="password" name="p"></form>'));
+  assert.ok(looksLikeLoginPage('<form action="/login"><input name="username"><input type="password" name="password"></form>'));
+  assert.ok(looksLikeLoginPage('<form><input type="email" id="email"><input type="password"></form>'));
+  // Regression (Sep 2026): a school newsletter asked parents to "log in to Veracross", and the
+  // refresh stopped with "Please log in" even though the session was fine.
+  assert.ok(!looksLikeLoginPage('<div class="email-body"><p>We ask that all parents take a few minutes to log in to Veracross and review their household information.</p><p>Sign in to your Veracross account to RSVP.</p></div>'));
+  // A lone password field (e.g. a hidden "change password" dialog) isn't a login page either.
+  assert.ok(!looksLikeLoginPage('<dialog><input type="password" name="new_pw"></dialog>'));
   assert.ok(!looksLikeLoginPage(fixture('overview.html')));
 });
 

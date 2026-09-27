@@ -29,6 +29,17 @@ export async function collectSnapshot({ school, fetcher, previous = null, settin
   const step = (label, done, total) => onProgress({ label, done, total });
 
   // Any SessionExpiredError aborts the whole run: partial data would look like mass removals.
+  // Single items (one message, one class post) never stop the refresh, not even with a login-looking
+  // response: the main pages already proved the session works, so it's that item that's odd.
+  const item = async (what, fn, sink) => {
+    try {
+      return await fn();
+    } catch (e) {
+      sink.push(`${what}: ${e instanceof SessionExpiredError ? 'looked like a login page; skipped' : e.message}`);
+      return null;
+    }
+  };
+
   const soft = async (what, fn, sink) => {
     try {
       return await fn();
@@ -145,7 +156,7 @@ export async function collectSnapshot({ school, fetcher, previous = null, settin
     for (const u of batch) {
       if (!byUrl.has(u.href)) {
         step('Reading class posts', done, total);
-        byUrl.set(u.href, await soft('Class post', () => fetcher.renderedText(u.href), snap.warnings));
+        byUrl.set(u.href, await item('Class post', () => fetcher.renderedText(u.href), snap.warnings));
       }
       done++;
       const r = byUrl.get(u.href);
@@ -177,7 +188,7 @@ export async function collectSnapshot({ school, fetcher, previous = null, settin
     total += toFetch.length;
     for (const m of toFetch) {
       step(`Message: ${m.title.slice(0, 40)}`, done, total);
-      const detail = await soft(`Message ${m.id}`, () => fetchMessageDetail(fetcher, school, m.id, now), snap.warnings);
+      const detail = await item(`Message ${m.id}`, () => fetchMessageDetail(fetcher, school, m.id, now), snap.warnings);
       done++;
       if (detail) {
         m.detail = detail;

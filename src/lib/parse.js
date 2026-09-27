@@ -380,7 +380,10 @@ export function parseMessageDetail(doc, now = new Date()) {
 }
 
 // Detects a login / SSO page served in place of the page we asked for.
+// Judged by the page's structure only — a password field together with a username/email field —
+// never by its words: school newsletters say things like "please log in to Veracross" too.
 export function looksLikeLoginPage(html) {
   const s = String(html).slice(0, 200000);
-  return /<input[^>]+type=["']?password/i.test(s) || /\b(sign in|log in) to (your )?veracross\b/i.test(s);
+  if (!/<input[^>]+type=["']?password/i.test(s)) return false;
+  return /<input[^>]+(?:type=["']?email|name=["']?[^"'>]*(?:user|email|login)|id=["']?[^"'>]*(?:user|email|login)|autocomplete=["']?username)/i.test(s);
 }
