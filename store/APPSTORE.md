@@ -6,7 +6,8 @@ Fields for App Store Connect → Distribution → 1.0 Prepare for Submission. Th
 
 | Slot | Files |
 |---|---|
-| iPhone 6.9" (1320×2868) | `iphone-1-actions.png`, `iphone-2-feed.png` |
+| iPhone 6.5" (1284×2778), the slot App Store Connect asks for by default | `iphone65-1-actions.png`, `iphone65-2-feed.png` |
+| iPhone 6.9" (1320×2868), optional | `iphone-1-actions.png`, `iphone-2-feed.png` |
 | iPad 13" (2064×2752) | `ipad-1-actions.png`, `ipad-2-feed.png` |
 | Mac (2880×1800) | `mac-1-actions.png`, `mac-2-feed.png` |
 
