@@ -20,11 +20,11 @@ export async function runRefresh({ school, settings, allowTabs = true, onProgres
     const snapshot = await collectSnapshot({ school, fetcher, previous, settings, onProgress });
     await saveLatest(school, snapshot);
     const diff = diffSnapshots(baseline, snapshot, { lookbackDays: settings.firstRunLookbackDays });
-    await saveStatus(school, { runningSince: null, lastRefresh: snapshot.takenAt, lastError: null, lastErrorKind: null, newCount: diff.total });
+    await saveStatus(school, { runningSince: null, lastRefresh: snapshot.takenAt, lastError: null, lastErrorKind: null, lastErrorDetail: null, newCount: diff.total, requestLog: fetcher.log });
     return { snapshot, diff };
   } catch (e) {
     const kind = e instanceof SessionExpiredError ? 'session' : 'error';
-    await saveStatus(school, { runningSince: null, lastError: e.message, lastErrorKind: kind, lastErrorAt: Date.now() });
+    await saveStatus(school, { runningSince: null, lastError: e.message, lastErrorKind: kind, lastErrorDetail: e.detail || null, lastErrorAt: Date.now(), requestLog: fetcher.log });
     throw e;
   } finally {
     await fetcher.close();

@@ -14,28 +14,35 @@ import { HOSTS } from './config.js';
 import { looksLikeLoginPage } from './parse.js';
 
 export class SessionExpiredError extends Error {
-  constructor(msg = 'Your Veracross session has expired. Log in to the portal, then refresh.') {
+  // `detail` says which request looked like a login page and why (shown in the banner/Diagnostics).
+  constructor(detail = '', msg = 'Your Veracross session has expired. Log in to the portal, then refresh.') {
     super(msg);
     this.name = 'SessionExpiredError';
+    this.detail = detail;
   }
 }
+
+// Path with ids masked, for logs: /ebgis/parent/student/#/overview
+const shortPath = (u) => { try { return new URL(u).pathname.replace(/\d+/g, '#'); } catch { return String(u); } };
 
 const ALLOWED = new Set(Object.values(HOSTS));
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-function isLoginResponse(res, requestedUrl, wantJson) {
-  if (res.status === 401 || res.status === 403) return true;
-  if (res.status === 404 || res.status >= 500) return false; // real errors, reported by checkStatus
+// Returns why a response looks like the login page instead of the requested content, or null.
+function loginReason(res, requestedUrl, wantJson) {
+  if (res.status === 401 || res.status === 403) return `HTTP ${res.status}`;
+  if (res.status === 404 || res.status >= 500) return null; // real errors, reported by checkStatus
   let finalUrl;
-  try { finalUrl = new URL(res.url || requestedUrl); } catch { return false; }
+  try { finalUrl = new URL(res.url || requestedUrl); } catch { return null; }
   const req = new URL(requestedUrl);
-  if (finalUrl.host !== req.host && !ALLOWED.has(finalUrl.host)) return true;
-  if (/\/(login|log_in|sign_in|signin|session|sso|saml|auth)(\/|$|\?)/i.test(finalUrl.pathname)) return true;
+  if (finalUrl.host !== req.host && !ALLOWED.has(finalUrl.host)) return `redirected to ${finalUrl.host}`;
+  if (/\/(login|log_in|sign_in|signin|session|sso|saml|auth)(\/|$|\?)/i.test(finalUrl.pathname)) return `redirected to ${shortPath(finalUrl.href)}`;
   if (wantJson) {
     const t = res.text.trimStart();
-    return !(res.contentType.includes('json') || t.startsWith('{') || t.startsWith('['));
+    if (res.contentType.includes('json') || t.startsWith('{') || t.startsWith('[')) return null;
+    return `expected JSON, got ${res.contentType || 'no content type'} (${res.text.length} bytes)`;
   }
-  return looksLikeLoginPage(res.text);
+  return looksLikeLoginPage(res.text) ? 'page has a login form' : null;
 }
 
 // Runs inside a Veracross tab (serialized by executeScript; must be self-contained).
@@ -57,6 +64,13 @@ export class Fetcher {
     this.tabs = new Map(); // host -> { tabId, created }
     this.last = 0;
     this.count = 0;
+    this.started = Date.now();
+    this.log = []; // one line per request, for Diagnostics: no page content, ids masked
+  }
+
+  note(via, url, status, outcome) {
+    this.log.push({ ms: Date.now() - this.started, via, host: new URL(url).host.split('.')[0], path: shortPath(url), status: status ?? null, outcome });
+    if (this.log.length > 200) this.log.shift();
   }
 
   async throttle() {
@@ -88,19 +102,23 @@ export class Fetcher {
       await this.throttle();
       this.onRequest(url);
       this.count++;
+      let why = null;
       try {
         const r = await fetch(url, { credentials: 'include', headers: { Accept: accept }, redirect: 'follow' });
         res = { status: r.status, url: r.url, contentType: r.headers.get('content-type') || '', text: await r.text() };
+        why = loginReason(res, url, wantJson);
+        this.note('direct', url, res.status, why ? `looks like login: ${why}` : 'ok');
       } catch (e) {
         res = null; // network/CORS failure: try the tab strategy
+        this.note('direct', url, null, `network error: ${e.message}`);
       }
-      if (res && !isLoginResponse(res, url, wantJson)) {
+      if (res && !why) {
         this.mode.set(host, 'direct');
         return this.checkStatus(res, url);
       }
       // Direct worked earlier for this host, so a login response now means the session really expired.
       if (this.mode.get(host) === 'direct' || !this.allowTabs) {
-        if (res) throw new SessionExpiredError();
+        if (res) throw new SessionExpiredError(`${shortPath(url)}: ${why}`);
         throw new Error(`Could not reach ${host}`);
       }
       this.mode.set(host, 'tab');
@@ -110,10 +128,23 @@ export class Fetcher {
     this.onRequest(url);
     this.count++;
     const tabId = await this.tabFor(host, url);
-    const [inj] = await ext.scripting.executeScript({ target: { tabId }, func: inPageFetch, args: [url, accept] });
-    if (!inj || !inj.result) throw new Error(`In-page request failed for ${new URL(url).pathname}`);
+    let inj;
+    try {
+      [inj] = await ext.scripting.executeScript({ target: { tabId }, func: inPageFetch, args: [url, accept] });
+    } catch (e) {
+      this.note('tab', url, null, `script injection failed: ${e.message}`);
+      const err = new Error(`The browser wouldn't let Parent Digest read ${host}. Check that the extension is allowed on all three Veracross sites (on iPhone: Settings → Apps → Safari → Extensions → Parent Digest).`);
+      err.detail = e.message;
+      throw err;
+    }
+    if (!inj || !inj.result) {
+      this.note('tab', url, null, 'in-page request returned nothing');
+      throw new Error(`In-page request failed for ${shortPath(url)}`);
+    }
     res = inj.result;
-    if (isLoginResponse(res, url, wantJson)) throw new SessionExpiredError();
+    const why = loginReason(res, url, wantJson);
+    this.note('tab', url, res.status, why ? `looks like login: ${why}` : 'ok');
+    if (why) throw new SessionExpiredError(`${shortPath(url)} (inside a ${host} tab): ${why}`);
     return this.checkStatus(res, url);
   }
 
@@ -146,7 +177,15 @@ export class Fetcher {
     const t = await ext.tabs.create({ url, active: false });
     this.tabs.set(host, { tabId: t.id, created: true });
     const loaded = await waitForTab(t.id);
-    if (!loaded || new URL(loaded.url || 'about:blank').host !== host) throw new SessionExpiredError();
+    if (!loaded) {
+      this.note('tab', url, null, 'background tab never finished loading');
+      throw new Error(`A background ${host} tab didn't finish loading.`);
+    }
+    const landed = new URL(loaded.url || 'about:blank');
+    if (landed.host !== host) {
+      this.note('tab', url, null, `background tab landed on ${landed.host}${shortPath(landed.href)}`);
+      throw new SessionExpiredError(`background ${host} tab was sent to ${landed.host}${shortPath(landed.href)}`);
+    }
     return t.id;
   }
 
@@ -171,7 +210,12 @@ export class Fetcher {
     // Give the update a moment to begin navigating before waiting on 'complete'.
     await sleep(150);
     const tab = await waitForTab(entry.tabId, timeoutMs);
-    if (!tab || new URL(tab.url || 'about:blank').host !== host) throw new SessionExpiredError();
+    if (!tab || new URL(tab.url || 'about:blank').host !== host) {
+      const where = tab ? `${new URL(tab.url || 'about:blank').host}${shortPath(tab.url || '')}` : 'nowhere (timed out)';
+      this.note('render', url, null, `post tab landed on ${where}`);
+      throw new SessionExpiredError(`class post tab landed on ${where}`);
+    }
+    this.note('render', url, null, 'loaded');
 
     // Client-side rendering: poll until the text stops growing.
     const deadline = Date.now() + timeoutMs;

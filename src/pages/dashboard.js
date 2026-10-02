@@ -1,10 +1,10 @@
 import { ext, inExtension } from '../lib/ext.js';
-import { getSettings, saveSettings, loadState, markSeen, clearAll, bytesInUse } from '../lib/store.js';
+import { getSettings, saveSettings, loadState, markSeen, clearAll, bytesInUse, saveStatus } from '../lib/store.js';
 import { runRefresh } from '../lib/refresh.js';
 import { diffSnapshots } from '../lib/diff.js';
 import { buildView, KINDS, digestEntry, isDone } from '../lib/feed.js';
 import { formatDay, formatTime, formatRelative, toISODate, fromISODate, startOfDay, DAY_MS } from '../lib/dates.js';
-import { urls } from '../lib/config.js';
+import { urls, HOSTS } from '../lib/config.js';
 import { translationAvailable, toEnglish, probablyNotEnglish } from '../lib/translate.js';
 
 const params = new URLSearchParams(location.search);
@@ -85,10 +85,42 @@ async function setBadge() {
 
 // --- Actions -----------------------------------------------------------------------------------
 
+// Safari (especially on iPhone) grants extensions access per site, sometimes only "for one day",
+// and never asks about sites the parent doesn't visit directly (portals-embed, classes). Ask for all
+// three up front. Must be called synchronously from the click so Safari treats it as user-initiated.
+const SITE_ORIGINS = Object.values(HOSTS).map((h) => `https://${h}/*`);
+
+function requestSiteAccess() {
+  if (!inExtension || DEMO || !ext.permissions?.request) return Promise.resolve({ ok: true, missing: [] });
+  return Promise.resolve(ext.permissions.request({ origins: SITE_ORIGINS }))
+    .catch(() => null)
+    .then(async (granted) => {
+      if (granted) return { ok: true, missing: [] };
+      const missing = [];
+      for (const o of SITE_ORIGINS) {
+        try { if (!(await ext.permissions.contains({ origins: [o] }))) missing.push(new URL(o.replace('/*', '/')).host); } catch { /* unknown */ }
+      }
+      return { ok: missing.length === 0, missing };
+    });
+}
+
 async function refresh() {
   if (state.busy) return;
+  const access = requestSiteAccess();
   const school = state.settings.school;
   if (!school) { openSettings(); return; }
+  const { ok, missing } = await access;
+  if (!ok) {
+    await saveStatus(school, {
+      lastError: `Safari hasn't allowed Parent Digest on ${missing.join(', ')}.`,
+      lastErrorKind: 'access',
+      lastErrorDetail: 'iPhone/iPad: Settings → Apps → Safari → Extensions → Parent Digest, and set these sites to Allow. Mac: Safari Settings → Extensions → Parent Digest → Edit Websites.',
+      lastErrorAt: Date.now(),
+    });
+    await load();
+    render();
+    return;
+  }
   state.busy = true;
   renderChrome();
   const prog = $('#progress');
@@ -165,10 +197,13 @@ function renderBanner() {
     return;
   }
   if (s.lastErrorKind === 'session') {
-    add('error', 'Please log in to Veracross', 'Your session has expired. Log in to the portal in this browser, then refresh. This extension never asks for or stores your password.',
+    add('error', 'Please log in to Veracross', `Your session seems to have expired. Log in to the portal in this browser, then refresh. This extension never asks for or stores your password.${s.lastErrorDetail ? ` (Why: ${s.lastErrorDetail})` : ''}`,
       h('a', { class: 'btn small', href: urls.parentHome(state.settings.school), target: '_blank', rel: 'noopener', text: 'Open portal' }));
+  } else if (s.lastErrorKind === 'access') {
+    add('error', 'Parent Digest needs permission for the Veracross sites', `${s.lastError} ${s.lastErrorDetail || ''}`,
+      h('button', { class: 'btn small', type: 'button', onclick: refresh, text: 'Try again' }));
   } else if (s.lastError) {
-    add('error', 'The last refresh failed', s.lastError);
+    add('error', 'The last refresh failed', s.lastErrorDetail ? `${s.lastError} (${s.lastErrorDetail})` : s.lastError);
   }
   const warnCount = (state.latest?.warnings?.length || 0) + (state.latest?.errors?.length || 0) +
     (state.latest?.children || []).reduce((n, c) => n + c.errors.length, 0);
@@ -479,6 +514,7 @@ function translateButton(it, cardEl) {
 async function renderDiagnostics() {
   const box = $('#diagnostics .diag-body');
   box.replaceChildren();
+  renderRequestLog(box);
   const snap = state.latest;
   if (!snap) { box.append(h('p', { text: 'No data yet.' })); return; }
   box.append(h('p', { text: `Snapshot ${new Date(snap.takenAt).toLocaleString()} · ${snap.stats?.requests ?? '?'} requests · fetch mode: ${Object.entries(snap.stats?.modes || {}).map(([k, v]) => `${k.split('.')[0]}=${v}`).join(', ') || 'n/a'}` }));
@@ -500,6 +536,35 @@ async function renderDiagnostics() {
   if (lines.length) box.append(h('ul', null, lines.map((l) => h('li', { text: l }))));
   const bytes = await bytesInUse();
   if (bytes != null) box.append(h('p', { text: `Local storage used: ${(bytes / 1024).toFixed(0)} KB` }));
+}
+
+// The last refresh's requests: host, path with ids masked, how it was sent, status, outcome.
+// No page content, so it's safe to copy and share for troubleshooting.
+function requestLogText() {
+  const st = state.status;
+  const head = [
+    `Parent Digest ${inExtension ? ext.runtime.getManifest().version : 'dev'} · ${navigator.userAgent}`,
+    `Last refresh: ${st.lastRefresh ? new Date(st.lastRefresh).toLocaleString() : 'never'}${st.lastError ? ` · failed ${new Date(st.lastErrorAt).toLocaleString()}: ${st.lastError}${st.lastErrorDetail ? ` (${st.lastErrorDetail})` : ''}` : ''}`,
+  ];
+  const rows = (st.requestLog || []).map((r) => `${String(r.ms).padStart(6)}ms ${r.via.padEnd(6)} ${r.host}${r.path} → ${r.status ?? '-'} ${r.outcome}`);
+  return [...head, ...rows].join('\n');
+}
+
+function renderRequestLog(box) {
+  const log = state.status.requestLog || [];
+  if (!log.length && !state.status.lastError) return;
+  const bad = log.filter((r) => r.outcome !== 'ok' && r.outcome !== 'loaded');
+  const copyBtn = h('button', { class: 'btn small', type: 'button', text: 'Copy diagnostics' });
+  copyBtn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(requestLogText());
+      copyBtn.textContent = 'Copied';
+    } catch {
+      copyBtn.textContent = 'Copy failed: select the text below instead';
+    }
+  });
+  box.append(h('p', null, `Last refresh made ${log.length} requests${bad.length ? `, ${bad.length} with problems` : ''}. `, copyBtn));
+  box.append(h('pre', { class: 'reqlog', text: requestLogText() }));
 }
 
 // --- Settings & history ------------------------------------------------------------------------

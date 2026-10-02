@@ -302,3 +302,5 @@ main { padding-top: 20px; padding-bottom: 40px; min-height: 50vh; outline: none;
   .top-actions #settingsBtn { margin-left: auto; }
   .card { padding: 12px 14px 12px 18px; }
 }
+
+.reqlog { max-height: 260px; overflow: auto; font: 11.5px/1.45 ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--surface-2); border: 1px solid var(--line-2); border-radius: 8px; padding: 8px 10px; white-space: pre; -webkit-user-select: text; user-select: text; }
