@@ -511,7 +511,9 @@ function translateButton(it, cardEl) {
 
 // --- Diagnostics -------------------------------------------------------------------------------
 
+let diagRender = 0;
 async function renderDiagnostics() {
+  const gen = ++diagRender; // render() can run twice in a row; only the latest may finish
   const box = $('#diagnostics .diag-body');
   box.replaceChildren();
   renderRequestLog(box);
@@ -535,6 +537,7 @@ async function renderDiagnostics() {
   ];
   if (lines.length) box.append(h('ul', null, lines.map((l) => h('li', { text: l }))));
   const bytes = await bytesInUse();
+  if (gen !== diagRender) return;
   if (bytes != null) box.append(h('p', { text: `Local storage used: ${(bytes / 1024).toFixed(0)} KB` }));
 }
 

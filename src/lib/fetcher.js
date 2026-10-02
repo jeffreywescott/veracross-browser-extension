@@ -127,14 +127,27 @@ export class Fetcher {
     await this.throttle();
     this.onRequest(url);
     this.count++;
-    const tabId = await this.tabFor(host, url);
-    let inj;
-    try {
-      [inj] = await ext.scripting.executeScript({ target: { tabId }, func: inPageFetch, args: [url, accept] });
-    } catch (e) {
-      this.note('tab', url, null, `script injection failed: ${e.message}`);
+    let inj = null;
+    let failure = null;
+    for (const fresh of [false, true]) {
+      const tabId = await this.tabFor(host, url, { fresh });
+      try {
+        [inj] = await ext.scripting.executeScript({ target: { tabId }, func: inPageFetch, args: [url, accept] });
+        failure = null;
+        break;
+      } catch (e) {
+        failure = e;
+        // A tab the parent had open may have been unloaded in the background (iOS does this to save
+        // memory), and scripts can't run in it. Retry once in a fresh tab of our own.
+        const reused = this.tabs.get(host)?.created === false;
+        this.note('tab', url, null, `script injection failed${fresh ? ' in a new tab too' : reused ? ' in an existing tab; retrying in a new one' : ''}: ${e.message}`);
+        this.tabs.delete(host);
+        if (!reused || fresh) break;
+      }
+    }
+    if (failure) {
       const err = new Error(`The browser wouldn't let Parent Digest read ${host}. Check that the extension is allowed on all three Veracross sites (on iPhone: Settings → Apps → Safari → Extensions → Parent Digest).`);
-      err.detail = e.message;
+      err.detail = failure.message;
       throw err;
     }
     if (!inj || !inj.result) {
@@ -158,7 +171,7 @@ export class Fetcher {
   }
 
   // Finds an open tab on `host`, or opens a background one. Tabs we open are closed in close().
-  async tabFor(host, url) {
+  async tabFor(host, url, { fresh = false } = {}) {
     const known = this.tabs.get(host);
     if (known) {
       try {
@@ -167,8 +180,8 @@ export class Fetcher {
       } catch { /* closed by the user */ }
       this.tabs.delete(host);
     }
-    const open = await ext.tabs.query({ url: `https://${host}/*` });
-    const ready = open.find((t) => t.status === 'complete') || open[0];
+    const open = fresh ? [] : await ext.tabs.query({ url: `https://${host}/*` });
+    const ready = open.find((t) => t.status === 'complete' && !t.discarded) || null;
     if (ready) {
       this.tabs.set(host, { tabId: ready.id, created: false });
       await waitForTab(ready.id);
